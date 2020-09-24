@@ -107,9 +107,8 @@ namespace SaitynaiAPI.Controllers
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("Admin", user.isAdmin.ToString()),
-                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString())
+                new Claim("Id", user.Id.ToString())
             };
 
             var token = new JwtSecurityToken(

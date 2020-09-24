@@ -56,7 +56,7 @@ namespace SaitynaiAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create([FromBody] CreateThreadRequest threadRequest)
         {
-            int id = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
+            int id = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
             if (_categoryRepository.Find(threadRequest.CategoryId) != null)
             {
                 Thread thread = ConvertFromDTO.FromCreateRequest(threadRequest);
@@ -78,8 +78,9 @@ namespace SaitynaiAPI.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateThreadRequest threadRequest)
         {
             Thread thr = _threadRepository.Find(id);
+            bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
             int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
-            if (thr != null && thr.UserId == userId)
+            if (thr != null && (thr.UserId == userId || admin ))
             {
                 thr.Body = threadRequest.Body;
                 _threadRepository.Update(thr);
@@ -95,8 +96,9 @@ namespace SaitynaiAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Thread thread = _threadRepository.Find(id);
+            bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
             int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
-            if (thread != null && thread.UserId == userId)
+            if (thread != null && (thread.UserId == userId || admin))
             {
                 _threadRepository.Delete(thread);
                 await _context.SaveChangesAsync();

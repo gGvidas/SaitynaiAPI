@@ -57,7 +57,7 @@ namespace SaitynaiAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create([FromBody] CreateCommentRequest commentRequest)
         {
-            int id = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
+            int id = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
             if (_threadRepository.Find(commentRequest.ThreadId) != null)
             {
                 Comment comment = ConvertFromDTO.FromCreateRequest(commentRequest);
@@ -79,8 +79,9 @@ namespace SaitynaiAPI.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateCommentRequest commentRequest)
         {
             Comment comment = _commentRepository.Find(id);
-            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
-            if (comment != null && comment.UserId == userId)
+            bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
+            if (comment != null && (comment.UserId == userId || admin))
             {
                 comment.Body = commentRequest.Body;
                 _commentRepository.Update(comment);
@@ -97,8 +98,9 @@ namespace SaitynaiAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Comment comment = _commentRepository.Find(id);
-            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
-            if (comment != null && comment.UserId == userId)
+            bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
+            if (comment != null && (comment.UserId == userId || admin ))
             {
                 _commentRepository.Delete(comment);
                 await _context.SaveChangesAsync();
