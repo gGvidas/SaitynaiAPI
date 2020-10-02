@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using SaitynaiAPI.StartupConfigurations;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace SaitynaiAPI
@@ -51,6 +53,13 @@ namespace SaitynaiAPI
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Admin", "True"));
             });
+
+            services.AddSwaggerGen(c => {
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +69,13 @@ namespace SaitynaiAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SaitynaiAPI");
+            });
 
             app.UseHttpsRedirection();
 
@@ -72,6 +88,14 @@ namespace SaitynaiAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStatusCodePages(async context =>
+            {
+                if (context.HttpContext.Response.StatusCode == 404)
+                {
+                    context.HttpContext.Response.StatusCode = 400;
+                }
             });
         }
     }

@@ -93,5 +93,12 @@ D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Microsoft.I
 D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Castle.Core.dll
 D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\obj\Debug\netcoreapp3.1\SaitynaiAPI.csproj.CoreCompileInputs.cache
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\obj\Debug\netcoreapp3.1\SaitynaiAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\obj\Debug\netcoreapp3.1\SaitynaiAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\bin\Debug\netcoreapp3.1\SaitynaiAPI.xml
+D:\KTUother\saitynai\SaitynaiAPI\SaitynaiAPI\obj\Debug\netcoreapp3.1\SaitynaiAPI.xml

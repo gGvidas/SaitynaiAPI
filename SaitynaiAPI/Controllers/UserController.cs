@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +31,23 @@ namespace SaitynaiAPI.Controllers
             _userRepository = userRepository;
             _config = config;
         }
-        //Login
+        
+        /// <summary>
+        /// Logins an user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/user/login
+        ///     {
+        ///         "email": "user1@user.com",
+        ///         "password": "user1"
+        ///     }
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns>Access token and a refresh token</returns>
+        /// <response code="200">Returns an access token and a refresh token</response>
+        /// <response code="401">If login credentials were wrong</response>
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
@@ -52,6 +67,21 @@ namespace SaitynaiAPI.Controllers
             else return Unauthorized();
         }
 
+        /// <summary>
+        /// Registers an user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/user/register
+        ///     {
+        ///         "email": "user1@user.com",
+        ///         "password": "user1"
+        ///     }
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns>Access token and a refresh token</returns>
+        /// <response code="201">Returns an access token and a refresh token</response>
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status201Created)]
@@ -64,6 +94,11 @@ namespace SaitynaiAPI.Controllers
             return CreatedAtAction(nameof(Login), new LoginResponse() { accessToken = GenerateJSONWebToken(user), refreshToken = user.RefreshToken });
         }
 
+        /// <summary>
+        /// Logouts an user
+        /// </summary>
+        /// <returns>No content</returns>
+        /// <response code="204">Returns no content</response>
         [Authorize]
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -84,6 +119,22 @@ namespace SaitynaiAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Refreshes the access token
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/user/refresh
+        ///     {
+        ///         "email": "user1@user.com",
+        ///         "refreshToken": "abc"
+        ///     }
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns>Access token and a refresh token</returns>
+        /// <response code="200">Returns an access token and a refresh token</response>
+        /// <response code="401">If refresh token and/or email was wrong</response>
         [HttpPost("refresh")]
         [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

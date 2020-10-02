@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SaitynaiAPI</name>
+    </assembly>
+    <members>
+        <member name="M:SaitynaiAPI.Controllers.CategoryController.GetAll">
+            <summary>
+            Fetches all categories
+            </summary>
+            <returns>A list of categories</returns>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CategoryController.Get(System.Int32)">
+            <summary>
+            Fetches a category that matches the id
+            </summary>
+            <param name="id"></param>
+            <returns>Category that matches the id</returns>
+            <response code="200">Returns the category that matches the id</response>
+            <response code="404">If there are no categories that match the id</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CategoryController.Post(SaitynaiAPI.DTOs.CategoryDTOs.CategoryRequest)">
+            <summary>
+            Creates a new category
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/category
+                {
+                    "name": "A new category"
+                }
+            </remarks>
+            <param name="categoryRequest"></param>
+            <returns>Newly created category</returns>
+            <response code="201">Returns the created category</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CategoryController.Update(System.Int32,SaitynaiAPI.DTOs.CategoryDTOs.CategoryRequest)">
+            <summary>
+            Changes the title of the category that matches the id
+            </summary>
+            <remarks>
+            Sample request:
+            
+                PATCH /api/category/1
+                {
+                    "name": "A patched category"
+                }
+            </remarks>
+            <param name="id"></param>
+            <param name="categoryRequest"></param>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CategoryController.Delete(System.Int32)">
+            <summary>
+            Deletes the category that matches the id
+            </summary>
+            <param name="id"></param>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+        </member>
+    </members>
+</doc>

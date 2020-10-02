@@ -26,6 +26,13 @@ namespace SaitynaiAPI.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Fetches specified thread
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Specified thread</returns>
+        /// <response code="200">Returns specified thread</response>
+        /// <response code="404">If no threads exist under specified id</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(GetThreadResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -36,6 +43,11 @@ namespace SaitynaiAPI.Controllers
             else return NotFound();
         }
 
+        /// <summary>
+        /// Fetches all threads
+        /// </summary>
+        /// <returns>A list of threads</returns>
+        /// <response code="200">Returns a list of threads</response>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<GetThreadCollectionResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
@@ -43,6 +55,12 @@ namespace SaitynaiAPI.Controllers
             return Ok(ConvertToDTO.ToGetResponse(await _threadRepository.GetAll()));
         }
 
+        /// <summary>
+        /// Fetches all threads that belong to specified category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns>A list of threads</returns>
+        /// <response code="200">Returns a list of threads</response>
         [HttpGet("category/{categoryId}")]
         [ProducesResponseType(typeof(ICollection<GetThreadCollectionResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByCategory(int categoryId)
@@ -50,6 +68,23 @@ namespace SaitynaiAPI.Controllers
             return Ok(ConvertToDTO.ToGetResponse(await _threadRepository.GetByCategory(categoryId)));
         }
 
+        /// <summary>
+        /// Creates a new thread
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/thread
+        ///     {
+        ///         "title": "Hello",
+        ///         "body": "Hi everyone",
+        ///         "categoryId": 1
+        ///     }
+        /// </remarks>
+        /// <param name="threadRequest"></param>
+        /// <returns>Newly created thread</returns>
+        /// <response code="201">Returns a new thread</response>
+        /// <response code="404">If category doesn't exist</response>
         [Authorize]
         [HttpPost]
         [ProducesResponseType(typeof(CreateThreadResponse), StatusCodes.Status201Created)]
@@ -71,6 +106,22 @@ namespace SaitynaiAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Changes the body of an existing thread
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PATCH /api/thread/1
+        ///     {
+        ///         "body": "Hi everyone!"
+        ///     }
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <param name="threadRequest"></param>
+        /// <returns></returns>
+        /// <response code="204">Returns no content</response>
+        /// <response code="401">If user is not authorized</response>
         [Authorize]
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -90,9 +141,17 @@ namespace SaitynaiAPI.Controllers
             else return Unauthorized();
         }
 
+        /// <summary>
+        /// Deletes specified thread
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>No content</returns>
+        /// <response code="204">Returns no content</response>
+        /// <response code="401">If user is not authorized</response>
         [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(int id)
         {
             Thread thread = _threadRepository.Find(id);
