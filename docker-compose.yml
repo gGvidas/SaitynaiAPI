@@ -21,3 +21,10 @@ services:
             - db
         volumes:
             - "./SaitynaiAPI:/app"
+    client:
+        stdin_open: true
+        build: ./saitynai
+        ports:
+            - "3000:3000"
+        volumes:
+            - "./saitynai:/front"
