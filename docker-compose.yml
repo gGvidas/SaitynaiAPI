@@ -3,8 +3,6 @@ version: "3"
 services: 
     db:
         image: mysql
-        volumes: 
-            - ./data:/var/lib/mysql
         restart: always
         env_file: 
             - .env
@@ -15,3 +13,11 @@ services:
             MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
         ports:
             - '3306:3306'
+    web:
+        build: ./SaitynaiAPI
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+        volumes:
+            - "./SaitynaiAPI:/app"
