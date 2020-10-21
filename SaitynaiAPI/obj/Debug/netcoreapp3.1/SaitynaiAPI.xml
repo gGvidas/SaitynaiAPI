@@ -60,5 +60,207 @@
             <returns>No content</returns>
             <response code="204">Returns no content</response>
         </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.Get(System.Int32)">
+            <summary>
+            Fetches comment that matches the id
+            </summary>
+            <param name="id"></param>
+            <returns>Comment that matches the id</returns>
+            <response code="200">Returns the comment that matches the id</response>
+            <response code="404">If no comment matches the id</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.GetByUser(System.Int32)">
+            <summary>
+            Fetches all comments that belong to the user
+            </summary>
+            <param name="userId"></param>
+            <returns>A list of comments</returns>
+            <response code="200">Returns a list of comments</response>
+            <response code="404">If no user exists under specified id</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.GetByThread(System.Int32)">
+            <summary>
+            Fetches all comments that belong to the specified thread
+            </summary>
+            <param name="threadId"></param>
+            <returns>A list of comments</returns>
+            <response code="200">Returns a list of comments</response>
+            <response code="404">If no thread exists under specified id</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.Create(SaitynaiAPI.DTOs.CommentDTOs.CreateCommentRequest)">
+            <summary>
+            Creates a new comment
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/comment
+                {
+                    "body": "Hello",
+                    "threadId": 1
+                }
+            </remarks>
+            <param name="commentRequest"></param>
+            <returns>Newly created comment</returns>
+            <response code="201">Returns a new comment</response>
+            <response code="404">If thread wasn't found</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.Update(System.Int32,SaitynaiAPI.DTOs.CommentDTOs.UpdateCommentRequest)">
+            <summary>
+            Changes the body of the specified comment
+            </summary>
+            <remarks>
+            Sample request:
+            
+                PATCH /api/comment/1
+                {
+                    "body": "Hi"
+                }
+            </remarks>
+            <param name="id"></param>
+            <param name="commentRequest"></param>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+            <response code="401">If user is not authorized</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.CommentController.Delete(System.Int32)">
+            <summary>
+            Deletes specified comment
+            </summary>
+            <param name="id"></param>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+            <response code="401">If user is not authorized</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.Get(System.Int32)">
+            <summary>
+            Fetches specified thread
+            </summary>
+            <param name="id"></param>
+            <returns>Specified thread</returns>
+            <response code="200">Returns specified thread</response>
+            <response code="404">If no threads exist under specified id</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.GetAll">
+            <summary>
+            Fetches all threads
+            </summary>
+            <returns>A list of threads</returns>
+            <response code="200">Returns a list of threads</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.GetByCategory(System.Int32)">
+            <summary>
+            Fetches all threads that belong to specified category
+            </summary>
+            <param name="categoryId"></param>
+            <returns>A list of threads</returns>
+            <response code="200">Returns a list of threads</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.Create(SaitynaiAPI.DTOs.ThreadDTOs.CreateThreadRequest)">
+            <summary>
+            Creates a new thread
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/thread
+                {
+                    "title": "Hello",
+                    "body": "Hi everyone",
+                    "categoryId": 1
+                }
+            </remarks>
+            <param name="threadRequest"></param>
+            <returns>Newly created thread</returns>
+            <response code="201">Returns a new thread</response>
+            <response code="404">If category doesn't exist</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.Update(System.Int32,SaitynaiAPI.DTOs.ThreadDTOs.UpdateThreadRequest)">
+            <summary>
+            Changes the body of an existing thread
+            </summary>
+            <remarks>
+            Sample request:
+            
+                PATCH /api/thread/1
+                {
+                    "body": "Hi everyone!"
+                }
+            </remarks>
+            <param name="id"></param>
+            <param name="threadRequest"></param>
+            <returns></returns>
+            <response code="204">Returns no content</response>
+            <response code="401">If user is not authorized</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.ThreadController.Delete(System.Int32)">
+            <summary>
+            Deletes specified thread
+            </summary>
+            <param name="id"></param>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+            <response code="401">If user is not authorized</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.UserController.Login(SaitynaiAPI.DTOs.UserDTOs.LoginRequest)">
+            <summary>
+            Logins an user
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/user/login
+                {
+                    "email": "user1@user.com",
+                    "password": "user1"
+                }
+            </remarks>
+            <param name="request"></param>
+            <returns>Access token and a refresh token</returns>
+            <response code="200">Returns an access token and a refresh token</response>
+            <response code="401">If login credentials were wrong</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.UserController.Register(SaitynaiAPI.DTOs.UserDTOs.LoginRequest)">
+            <summary>
+            Registers an user
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/user/register
+                {
+                    "email": "user1@user.com",
+                    "password": "user1"
+                }
+            </remarks>
+            <param name="request"></param>
+            <returns>Access token and a refresh token</returns>
+            <response code="201">Returns an access token and a refresh token</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.UserController.Logout">
+            <summary>
+            Logouts an user
+            </summary>
+            <returns>No content</returns>
+            <response code="204">Returns no content</response>
+        </member>
+        <member name="M:SaitynaiAPI.Controllers.UserController.Refresh(SaitynaiAPI.DTOs.UserDTOs.RefreshRequest)">
+            <summary>
+            Refreshes the access token
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /api/user/refresh
+                {
+                    "email": "user1@user.com",
+                    "refreshToken": "abc"
+                }
+            </remarks>
+            <param name="request"></param>
+            <returns>Access token and a refresh token</returns>
+            <response code="200">Returns an access token and a refresh token</response>
+            <response code="401">If refresh token and/or email was wrong</response>
+        </member>
     </members>
 </doc>

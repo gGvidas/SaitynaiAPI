@@ -1,1 +1,4 @@
 **/appsettings.*
+.env
+SaitynaiAPI/bin
+SaitynaiAPI/obj

@@ -1,0 +1,17 @@
+version: "3"
+
+services: 
+    db:
+        image: mysql
+        volumes: 
+            - ./data:/var/lib/mysql
+        restart: always
+        env_file: 
+            - .env
+        environment: 
+            MYSQL_DATABASE: 'saitynaiapi'
+            MYSQL_USER: 'saitynaiapi'
+            MYSQL_PASSWORD: '${USER_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
+        ports:
+            - '3306:3306'
