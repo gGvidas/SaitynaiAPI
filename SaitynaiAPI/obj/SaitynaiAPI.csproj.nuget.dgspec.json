@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/sxlar/Documents/SaitynaiAPI/SaitynaiAPI/SaitynaiAPI.csproj": {}
+    "/app/SaitynaiAPI.csproj": {}
   },
   "projects": {
-    "/home/sxlar/Documents/SaitynaiAPI/SaitynaiAPI/SaitynaiAPI.csproj": {
+    "/app/SaitynaiAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/sxlar/Documents/SaitynaiAPI/SaitynaiAPI/SaitynaiAPI.csproj",
+        "projectUniqueName": "/app/SaitynaiAPI.csproj",
         "projectName": "SaitynaiAPI",
-        "projectPath": "/home/sxlar/Documents/SaitynaiAPI/SaitynaiAPI/SaitynaiAPI.csproj",
-        "packagesPath": "/home/sxlar/.nuget/packages/",
-        "outputPath": "/home/sxlar/Documents/SaitynaiAPI/SaitynaiAPI/obj/",
+        "projectPath": "/app/SaitynaiAPI.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/app/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/sxlar/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
