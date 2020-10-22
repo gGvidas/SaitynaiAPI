@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  useEffect(() => {
+    const func = async () => {
+      await fetch("https://localhost:8000/api/category").then(res => res.json()).then(data => console.log(data))
+    }
+
+    func()
+  })
+
   return (
     <div className="App">
       <header className="App-header">
