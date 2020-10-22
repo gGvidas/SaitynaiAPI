@@ -21,6 +21,8 @@ services:
             - db
         volumes:
             - "./SaitynaiAPI:/app"
+        env_file: 
+            - .env
     client:
         stdin_open: true
         build: ./saitynai

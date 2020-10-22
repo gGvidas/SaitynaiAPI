@@ -6,7 +6,7 @@ function App() {
 
   useEffect(() => {
     const func = async () => {
-      await fetch("https://localhost:8000/api/category").then(res => res.json()).then(data => console.log(data))
+      await fetch("http://localhost:8000/api/category").then(res => res.json()).then(data => console.log(data))
     }
 
     func()
