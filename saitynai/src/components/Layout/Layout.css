@@ -1,0 +1,19 @@
+header {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    height: 64px;
+    background-color: black;
+}
+
+.body {
+    padding-bottom: 64px;
+}
+
+footer {
+    height: 64px;
+    width: 100%;
+    background-color: black;
+    bottom: 0;
+    position: absolute;
+}
