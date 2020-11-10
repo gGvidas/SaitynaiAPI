@@ -20,10 +20,10 @@ export const Layout = ({children}: IProps) => {
 
     return (
         <>
-            <div className={"navbar" + (isNavbarOpen ? " navbar-open" : "")}>abcdef</div>
-            <div className={"body" + (isNavbarOpen ? " body-open" : "")}>
+            <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}>abcdef</div>
+            <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
                 <header>
-                <button id="header-menu-button" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
+                    <button id="headerMenuButton" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
                         <img src={menu}/>
                     </button>
                     Forum
@@ -31,8 +31,13 @@ export const Layout = ({children}: IProps) => {
                         <img src={user}/>
                     </button>
                 </header>
-                <div className="content">{abc()}</div>
-                <footer>abc</footer>
+                <div className="content">
+                    <div className="navbarRegular">
+                        abc
+                    </div>
+                    {abc()}
+                </div>
+                <footer>Made by Gvidas Gaidauskas IFF-7/8</footer>
             </div>
         </>
     )

@@ -30,3 +30,5 @@ services:
             - "3000:3000"
         volumes:
             - "./saitynai:/front"
+        depends_on: 
+            - web
