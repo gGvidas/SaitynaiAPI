@@ -19,11 +19,34 @@ type User = {
     refreshToken: string
 }
 
+type RefreshRequest = {
+    email: string,
+    refreshToken: string
+}
+
 export function Login(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
 }
 
+export function GetAccessToken(): string | null {
+    // TODO use a lib
+    const user = localStorage.getItem('user')
+
+    if (user) {
+        const parsedUser: User = JSON.parse(user)
+
+        return parsedUser.refreshToken
+    }
+    return null
+}
+
+export function IsExpired(): boolean {
+    // TODO use a lib
+    return true
+}
+
 export function IsAdmin(): boolean {
+    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
@@ -36,6 +59,7 @@ export function IsAdmin(): boolean {
 }
 
 export function GetId(): number | null {
+    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
@@ -48,6 +72,7 @@ export function GetId(): number | null {
 }
 
 export function GetEmail(): string | null {
+    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
@@ -57,4 +82,10 @@ export function GetEmail(): string | null {
         return payload.Email
     }
     return null
+}
+
+export function GetRefreshRequest(): RefreshRequest {
+    // TODO use a lib
+
+    return {email: "abc", refreshToken: "abc"}
 }

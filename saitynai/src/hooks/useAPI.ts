@@ -1,3 +1,5 @@
+import { GetAccessToken, GetRefreshRequest, IsExpired, Login } from "../utils/user";
+
 type ApiParams = {
     method: string,
     path: string,
@@ -10,42 +12,40 @@ type ApiOptions = {
     body?: any
 }
 
-const getToken = (): string => {
-    return "abc"
-}
-
-const getUrl = ():string => {
+function getUrl():string {
     return "http://localhost/8000"
 }
-
-const getResponseBody = async (response: Response): Promise<any> => {
-    const text = await response.text();
-  
-    try {
-      return JSON.parse(text);
-    } catch {
-      return text;
-    }
-  };
 
 const send = async (apiOptions: ApiParams) => {
     const options: ApiOptions = {
         method: apiOptions.method,
         headers: {}
     }
-    options.headers.Authorization = `Bearer ${getToken()}`
+
+    const accessToken = GetAccessToken()
+
+    if (accessToken){
+        options.headers.Authorization = `Bearer ${accessToken}`
+    }
 
     if (apiOptions.data) {
         options.headers['Content-Type'] = 'application/json'
         options.body = apiOptions.data
     }
 
-    const result = await fetch(`${getUrl()}/${apiOptions.path}`, options)
-    const responseBody = await getResponseBody(result)
+    const result = await fetch(`${getUrl()}/${apiOptions.path}`, options).then(res => res).catch(err => err)
+    if (!result.ok) {
+        if (IsExpired()) {
+            const refreshResult = await fetch(`${getUrl()}/api/user/refresh`, {method: 'POST', body: JSON.stringify(GetRefreshRequest())}).then(res => res).catch(err => err)
+            if (refreshResult.ok) {
+                Login(JSON.parse(refreshResult.text()))
 
-    //TODO add token refresh and error
+                return send(apiOptions)
+            }
+        }
+    }
 
-    return responseBody
+    return result
 
 }
 
