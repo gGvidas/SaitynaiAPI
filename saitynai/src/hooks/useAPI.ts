@@ -12,11 +12,16 @@ type ApiOptions = {
     body?: any
 }
 
+type FetchReturn = {
+    code: number,
+    text: string
+}
+
 function getUrl():string {
     return "http://localhost/8000"
 }
 
-const send = async (apiOptions: ApiParams) => {
+const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
     const options: ApiOptions = {
         method: apiOptions.method,
         headers: {}
@@ -40,12 +45,12 @@ const send = async (apiOptions: ApiParams) => {
             if (refreshResult.ok) {
                 Login(JSON.parse(refreshResult.text()))
 
-                return send(apiOptions)
+                return await send(apiOptions)
             }
         }
     }
 
-    return result
+    return { code: result.code, text: await result.text() }
 
 }
 
