@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -159,7 +161,8 @@ namespace SaitynaiAPI.Controllers
             var claims = new[]
             {
                 new Claim("Admin", user.isAdmin.ToString()),
-                new Claim("Id", user.Id.ToString())
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Email", user.Email)
             };
 
             var token = new JwtSecurityToken(
