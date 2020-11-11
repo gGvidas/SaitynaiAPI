@@ -2,6 +2,8 @@ import React, { ReactNode, useState } from 'react'
 import './Layout.css'
 import menu from '../../icons/menu.svg'
 import user from '../../icons/user.svg'
+import { CategoryList } from '../Category/CategoryList'
+import { GetEmail } from '../../utils/user'
 
 interface IProps {
     children: ReactNode
@@ -20,20 +22,31 @@ export const Layout = ({children}: IProps) => {
 
     return (
         <>
-            <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}>abcdef</div>
+            <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}><CategoryList/></div>
             <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
                 <header>
                     <button id="headerMenuButton" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
-                        <img src={menu}/>
+                        <img alt="" src={menu}/>
                     </button>
                     Forum
-                    <button>
-                        <img src={user}/>
-                    </button>
+                    { GetEmail() ?
+                        <button>
+                            <img alt="" src={user}/>
+                        </button>
+                        :
+                        <div>
+                            <button>
+                                Login
+                            </button>
+                            <button>
+                                Register
+                            </button>
+                        </div>
+                    }
                 </header>
                 <div className="content">
                     <div className="navbarRegular">
-                        abc
+                        <CategoryList/>
                     </div>
                     {abc()}
                 </div>

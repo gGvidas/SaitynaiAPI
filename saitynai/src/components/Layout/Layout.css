@@ -30,8 +30,6 @@ header button:focus {
 }
 
 .navbar {
-    background-color: blue;
-
     position: absolute;
 
     top: 0;

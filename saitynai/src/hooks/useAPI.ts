@@ -18,7 +18,7 @@ type FetchReturn = {
 }
 
 function getUrl():string {
-    return "http://localhost/8000"
+    return "http://localhost:8000"
 }
 
 const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
@@ -49,8 +49,8 @@ const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
             }
         }
     }
-
-    return { code: result.code, text: await result.text() }
+    const text = await result.text()
+    return { code: result.status, text: text }
 
 }
 

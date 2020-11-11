@@ -1,17 +1,10 @@
-function parseJwt(token: string) {
-    var base64Url = token.split('.')[1]
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    }).join(''))
-
-    return JSON.parse(jsonPayload)
-}
+import jwt_decode from 'jwt-decode'
 
 type UserPayload = {
-    Id: number,
-    Admin: boolean,
-    Email: string
+    id: number,
+    admin: boolean,
+    email: string,
+    exp: number
 }
 
 type User = {
@@ -29,63 +22,73 @@ export function Login(user: User) {
 }
 
 export function GetAccessToken(): string | null {
-    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
         const parsedUser: User = JSON.parse(user)
 
-        return parsedUser.refreshToken
+        return parsedUser.accessToken
     }
     return null
 }
 
 export function IsExpired(): boolean {
-    // TODO use a lib
-    return true
-}
-
-export function IsAdmin(): boolean {
-    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
         const parsedUser: User = JSON.parse(user)
-        const payload: UserPayload = parseJwt(parsedUser.accessToken)
+        const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.Admin
+        return payload.exp < Date.now() / 1000
+    }
+    return false
+}
+
+export function IsAdmin(): boolean {
+    const user = localStorage.getItem('user')
+
+    if (user) {
+        const parsedUser: User = JSON.parse(user)
+        const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
+
+        return payload.admin
     }
     return false
 }
 
 export function GetId(): number | null {
-    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
         const parsedUser: User = JSON.parse(user)
-        const payload: UserPayload = parseJwt(parsedUser.accessToken)
+        const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.Id
+        return payload.id
     }
     return null
 }
 
 export function GetEmail(): string | null {
-    // TODO use a lib
     const user = localStorage.getItem('user')
 
     if (user) {
         const parsedUser: User = JSON.parse(user)
-        const payload: UserPayload = parseJwt(parsedUser.accessToken)
+        const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.Email
+        return payload.email
     }
     return null
 }
 
-export function GetRefreshRequest(): RefreshRequest {
-    // TODO use a lib
+export function GetRefreshRequest(): RefreshRequest | null {
+    const user = localStorage.getItem('user')
 
-    return {email: "abc", refreshToken: "abc"}
+    if (user) {
+        const parsedUser: User = JSON.parse(user)
+        const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
+        
+        return {email: payload.email, refreshToken: parsedUser.refreshToken}
+    }
+    
+    return null
 }
