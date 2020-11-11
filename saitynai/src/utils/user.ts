@@ -1,8 +1,8 @@
 import jwt_decode from 'jwt-decode'
 
 type UserPayload = {
-    Id: number,
-    Admin: boolean,
+    Id: string,
+    Admin: string,
     Email: string,
     exp: number
 }
@@ -54,7 +54,7 @@ export function IsAdmin(): boolean {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.Admin
+        return payload.Admin === "True"
     }
     return false
 }
@@ -66,7 +66,7 @@ export function GetId(): number | null {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.Id
+        return parseInt(payload.Id)
     }
     return null
 }

@@ -9,15 +9,41 @@
     align-items: flex-start;
     border: 1px solid orange;
     box-shadow: 1px 1px 5px orange;
+    color: inherit;
+    text-decoration: none;
 }
 
 .threadList {
     width: 100%;
 }
 
+.author {
+    display: none;
+}
+
 .threadLink {
     font-weight: bold;
     font-size: 1.25rem;
-    color: inherit;
-    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.threadActionButton {
+    background: none;
+    border: none;
+}
+
+.threadActionButton:hover {
+    background-color: lightgray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 762px) {
+    .author {
+        display: inherit;
+    }
 }

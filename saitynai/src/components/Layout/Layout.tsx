@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import ReactModal from 'react-modal'
 import './Layout.css'
 import menu from '../../icons/menu.svg'
-import user from '../../icons/user.svg'
 import { CategoryList } from '../Category/CategoryList'
 import { GetEmail, Logout } from '../../utils/user'
 import { LoginForm } from '../User/Login'
@@ -16,6 +15,15 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
     const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
+    const login = () => {
+        window.location.reload()
+    }
+
+    const logout = () => {
+        Logout()
+        window.location.reload()
+    }
+
     return (
         <>
             <ReactModal
@@ -24,7 +32,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
             className="modalBody"
             onRequestClose={() => setIsModalOpen(false)}
             >
-                <LoginForm callback={() => setIsModalOpen(false)}/>
+                <LoginForm callback={() => login()}/>
             </ReactModal>
             <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}><CategoryList/></div>
             <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
@@ -36,7 +44,6 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                     { GetEmail() ?
                         <div>
                             {GetEmail()}
-                            <img alt="" src={user}/>
                         </div>
                         :
                         <div>
@@ -57,7 +64,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                 </div>
                 <footer>
                     Made by Gvidas Gaidauskas IFF-7/8
-                    {GetEmail() ? <button onClick={() => Logout()}>Logout</button> : null}
+                    {GetEmail() ? <button onClick={() => logout()}>Logout</button> : null}
                 </footer>
             </div>
         </>
