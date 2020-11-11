@@ -88,30 +88,6 @@ footer {
     color: inherit;
 }
 
-.modalOverlay {
-    z-index: 2000;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.modalBody {
-    z-index: 2000;
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 @media only screen and (min-width: 768px) {
     #headerMenuButton {
         display: none;

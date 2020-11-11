@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ReactModal from 'react-modal'
 import './Layout.css'
 import menu from '../../icons/menu.svg'
 import { CategoryList } from '../Category/CategoryList'
@@ -13,11 +12,7 @@ interface IProps {
 
 export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
     const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false)
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-
-    const login = () => {
-        window.location.reload()
-    }
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 
     const logout = () => {
         Logout()
@@ -26,14 +21,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
 
     return (
         <>
-            <ReactModal
-            isOpen={isModalOpen}
-            overlayClassName="modalOverlay"
-            className="modalBody"
-            onRequestClose={() => setIsModalOpen(false)}
-            >
-                <LoginForm callback={() => login()}/>
-            </ReactModal>
+            <LoginForm isOpen={isLoginModalOpen} onRequestClose={() => setIsLoginModalOpen(false)} callback={() => window.location.reload()}/>
             <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}><CategoryList/></div>
             <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
                 <header>
@@ -47,10 +35,10 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                         </div>
                         :
                         <div>
-                            <button onClick={() => setIsModalOpen(true)}>
+                            <button onClick={() => setIsLoginModalOpen(true)}>
                                 Login
                             </button>
-                            <button onClick={() => setIsModalOpen(true)}>
+                            <button onClick={() => setIsLoginModalOpen(true)}>
                                 Register
                             </button>
                         </div>

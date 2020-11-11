@@ -11,9 +11,6 @@ type ThreadProps = {
 }
 
 export const ThreadLink: React.FunctionComponent<ThreadProps> = ({ thread }: ThreadProps) => {
-    console.log(IsAdmin())
-    console.log(thread.userId === GetId())
-
     return (
         <Link to={`/thread/${thread.id}`} className="thread">
             <div className="threadLink">
