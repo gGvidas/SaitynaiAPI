@@ -1,44 +1,49 @@
 import React, { ReactNode, useState } from 'react'
+import { Link } from 'react-router-dom'
+import ReactModal from 'react-modal'
 import './Layout.css'
 import menu from '../../icons/menu.svg'
 import user from '../../icons/user.svg'
 import { CategoryList } from '../Category/CategoryList'
-import { GetEmail } from '../../utils/user'
+import { GetEmail, Logout } from '../../utils/user'
+import { LoginForm } from '../User/Login'
 
 interface IProps {
     children: ReactNode
 }
 
-export const Layout = ({children}: IProps) => {
-    const [isNavbarOpen, setIsNavbarOpen] = useState(false)
-
-    const abc = () => {
-        const abc = []
-        for (let index = 0; index < 80; index++) {
-            abc.push(children)
-        }
-        return abc
-    }
+export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
+    const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     return (
         <>
+            <ReactModal
+            isOpen={isModalOpen}
+            overlayClassName="modalOverlay"
+            className="modalBody"
+            onRequestClose={() => setIsModalOpen(false)}
+            >
+                <LoginForm callback={() => setIsModalOpen(false)}/>
+            </ReactModal>
             <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}><CategoryList/></div>
             <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
                 <header>
                     <button id="headerMenuButton" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
                         <img alt="" src={menu}/>
                     </button>
-                    Forum
+                    <Link to="/" className="homeLink">Forum</Link>
                     { GetEmail() ?
-                        <button>
+                        <div>
+                            {GetEmail()}
                             <img alt="" src={user}/>
-                        </button>
+                        </div>
                         :
                         <div>
-                            <button>
+                            <button onClick={() => setIsModalOpen(true)}>
                                 Login
                             </button>
-                            <button>
+                            <button onClick={() => setIsModalOpen(true)}>
                                 Register
                             </button>
                         </div>
@@ -48,9 +53,12 @@ export const Layout = ({children}: IProps) => {
                     <div className="navbarRegular">
                         <CategoryList/>
                     </div>
-                    {abc()}
+                    {children}
                 </div>
-                <footer>Made by Gvidas Gaidauskas IFF-7/8</footer>
+                <footer>
+                    Made by Gvidas Gaidauskas IFF-7/8
+                    {GetEmail() ? <button onClick={() => Logout()}>Logout</button> : null}
+                </footer>
             </div>
         </>
     )

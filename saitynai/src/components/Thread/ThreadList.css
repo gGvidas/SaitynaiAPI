@@ -1,0 +1,23 @@
+.thread {
+    height: 48px;
+    margin-top: 8px;
+    margin-right: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid orange;
+    box-shadow: 1px 1px 5px orange;
+}
+
+.threadList {
+    width: 100%;
+}
+
+.threadLink {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: inherit;
+    text-decoration: none;
+}

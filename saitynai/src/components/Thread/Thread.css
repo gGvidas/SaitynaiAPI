@@ -1,0 +1,49 @@
+.threadContainer {
+    width: 100%;
+
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.error {
+    visibility: hidden;
+    width: 0;
+}
+
+.threadError {
+    color: red;
+    font-weight: bold;
+    font-size: 2rem;
+    width: 100%;
+}
+
+.threadTitle {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.threadBody {
+    border: 1px solid orange;
+    box-shadow: 1px 1px 5px orange;
+    width: 80%;
+    min-height: 64px;
+    padding: 8px;
+    margin: 16px 0px 8px;
+}
+
+.threadAuthor {
+    width: calc(80% + 16px);
+    margin-bottom: 24px;
+}
+
+.threadComment {
+    width: 80%;
+    border: 1px solid orange;
+    
+    margin-top: 8px;
+    padding: 8px;
+}

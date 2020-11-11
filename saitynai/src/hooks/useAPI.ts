@@ -34,16 +34,17 @@ const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
     }
 
     if (apiOptions.data) {
-        options.headers['Content-Type'] = 'application/json'
-        options.body = apiOptions.data
+        options.headers = {
+            'Content-Type': 'application/json'
+        }
+        options.body = JSON.stringify(apiOptions.data)
     }
-
     const result = await fetch(`${getUrl()}/${apiOptions.path}`, options).then(res => res).catch(err => err)
     if (!result.ok) {
         if (IsExpired()) {
             const refreshResult = await fetch(`${getUrl()}/api/user/refresh`, {method: 'POST', body: JSON.stringify(GetRefreshRequest())}).then(res => res).catch(err => err)
             if (refreshResult.ok) {
-                Login(JSON.parse(refreshResult.text()))
+                Login(JSON.parse(await refreshResult.text()))
 
                 return await send(apiOptions)
             }

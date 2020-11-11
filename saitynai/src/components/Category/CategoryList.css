@@ -9,3 +9,13 @@
 
     font-weight: bold;
 }
+
+.navbarLink {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.navbarLinkActive {
+    color: red;
+}

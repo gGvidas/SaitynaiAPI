@@ -1,9 +1,9 @@
 import jwt_decode from 'jwt-decode'
 
 type UserPayload = {
-    id: number,
-    admin: boolean,
-    email: string,
+    Id: number,
+    Admin: boolean,
+    Email: string,
     exp: number
 }
 
@@ -19,6 +19,9 @@ type RefreshRequest = {
 
 export function Login(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
+}
+export function Logout() {
+    localStorage.removeItem('user')
 }
 
 export function GetAccessToken(): string | null {
@@ -39,9 +42,9 @@ export function IsExpired(): boolean {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.exp < Date.now() / 1000
+        return payload.exp >= Date.now() / 1000
     }
-    return false
+    return true
 }
 
 export function IsAdmin(): boolean {
@@ -51,7 +54,7 @@ export function IsAdmin(): boolean {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.admin
+        return payload.Admin
     }
     return false
 }
@@ -63,7 +66,7 @@ export function GetId(): number | null {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.id
+        return payload.Id
     }
     return null
 }
@@ -74,8 +77,8 @@ export function GetEmail(): string | null {
     if (user) {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
-
-        return payload.email
+        
+        return payload.Email
     }
     return null
 }
@@ -87,7 +90,7 @@ export function GetRefreshRequest(): RefreshRequest | null {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
         
-        return {email: payload.email, refreshToken: parsedUser.refreshToken}
+        return {email: payload.Email, refreshToken: parsedUser.refreshToken}
     }
     
     return null

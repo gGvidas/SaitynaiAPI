@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useApi } from '../../hooks/useAPI'
 import './CategoryList.css'
 
@@ -24,7 +25,7 @@ export const CategoryList = () => {
     
     return (
         <div className="categoryList">
-            {categories.map(category => <a key={category.id}>{category.name}</a>)}
+            {categories.map(category => <NavLink to={`/${category.id}`} key={category.id} className="navbarLink" activeClassName="navbarLinkActive">{category.name}</NavLink>)}
         </div>
     )
 }
