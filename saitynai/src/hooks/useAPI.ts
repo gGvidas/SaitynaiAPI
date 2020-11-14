@@ -1,4 +1,4 @@
-import { GetAccessToken, GetRefreshRequest, IsExpired, Login } from "../utils/user";
+import { GetAccessToken, GetRefreshRequest, IsExpired, Login, Logout } from "../utils/user";
 
 type ApiParams = {
     method: string,
@@ -39,14 +39,21 @@ const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
         }
         options.body = JSON.stringify(apiOptions.data)
     }
+    console.log(options.body)
     const result = await fetch(`${getUrl()}/${apiOptions.path}`, options).then(res => res).catch(err => err)
     if (!result.ok) {
         if (IsExpired()) {
-            const refreshResult = await fetch(`${getUrl()}/api/user/refresh`, {method: 'POST', body: JSON.stringify(GetRefreshRequest())}).then(res => res).catch(err => err)
+            const refreshResult = await fetch(`${getUrl()}/api/user/refresh`, {method: 'POST', headers:{
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify(GetRefreshRequest())}).then(res => res).catch(err => err)
             if (refreshResult.ok) {
                 Login(JSON.parse(await refreshResult.text()))
 
                 return await send(apiOptions)
+            } else if (refreshResult.status === 401) {
+                Logout()
+                window.location.reload()
+                return { code: 0, text: ""}
             }
         }
     }

@@ -130,7 +130,7 @@ namespace SaitynaiAPI.Controllers
         {
             Thread thr = _threadRepository.Find(id);
             bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
-            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
             if (thr != null && (thr.UserId == userId || admin ))
             {
                 thr.Body = threadRequest.Body;
@@ -156,7 +156,7 @@ namespace SaitynaiAPI.Controllers
         {
             Thread thread = _threadRepository.Find(id);
             bool admin = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Admin").Value == "True";
-            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.NameId).Value);
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
             if (thread != null && (thread.UserId == userId || admin))
             {
                 _threadRepository.Delete(thread);

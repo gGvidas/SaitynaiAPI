@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useApi } from '../../hooks/useAPI'
 import './CategoryList.css'
 
-interface ICategory {
+export interface ICategory {
     id: number,
     name: string
 }

@@ -5,6 +5,7 @@ import menu from '../../icons/menu.svg'
 import { CategoryList } from '../Category/CategoryList'
 import { GetEmail, Logout } from '../../utils/user'
 import { LoginForm } from '../User/Login'
+import { RegisterForm } from '../User/Register'
 
 interface IProps {
     children: ReactNode
@@ -13,6 +14,7 @@ interface IProps {
 export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
     const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState<boolean>(false)
 
     const logout = () => {
         Logout()
@@ -22,6 +24,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
     return (
         <>
             <LoginForm isOpen={isLoginModalOpen} onRequestClose={() => setIsLoginModalOpen(false)} callback={() => window.location.reload()}/>
+            <RegisterForm isOpen={isRegisterModalOpen} onRequestClose={() => setIsRegisterModalOpen(false)} callback={() => window.location.reload()}/>
             <div className={"navbar navbarMobile" + (isNavbarOpen ? " navbarOpen" : "")}><CategoryList/></div>
             <div className={"body" + (isNavbarOpen ? " bodyOpen" : "")}>
                 <header>
@@ -38,7 +41,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                             <button onClick={() => setIsLoginModalOpen(true)}>
                                 Login
                             </button>
-                            <button onClick={() => setIsLoginModalOpen(true)}>
+                            <button onClick={() => setIsRegisterModalOpen(true)}>
                                 Register
                             </button>
                         </div>

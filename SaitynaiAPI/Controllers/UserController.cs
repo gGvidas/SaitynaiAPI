@@ -87,13 +87,21 @@ namespace SaitynaiAPI.Controllers
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] LoginRequest request)
         {
-            User user = ConvertFromDTO.FromCreateRequest(request);
-            user.RefreshToken = GenerateRefreshToken();
-            _userRepository.Create(user);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Login), new LoginResponse() { accessToken = GenerateJSONWebToken(user), refreshToken = user.RefreshToken });
+            try
+            {
+                User user = ConvertFromDTO.FromCreateRequest(request);
+                user.RefreshToken = GenerateRefreshToken();
+                _userRepository.Create(user);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(Login), new LoginResponse() { accessToken = GenerateJSONWebToken(user), refreshToken = user.RefreshToken });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -106,7 +114,7 @@ namespace SaitynaiAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task Logout()
         {
-            Claim emailClaim = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Email);
+            Claim emailClaim = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Email");
             if (emailClaim != null)
             {
                 string email = emailClaim.Value;

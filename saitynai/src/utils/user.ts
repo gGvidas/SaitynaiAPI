@@ -21,6 +21,7 @@ export function Login(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
 }
 export function Logout() {
+    fetch('http://localhost:8000/api/user', {method: 'PATCH', headers: {Authorization: `Bearer ${GetAccessToken()}`}})
     localStorage.removeItem('user')
 }
 
@@ -42,9 +43,9 @@ export function IsExpired(): boolean {
         const parsedUser: User = JSON.parse(user)
         const payload: UserPayload = jwt_decode(parsedUser.accessToken) as UserPayload
 
-        return payload.exp >= Date.now() / 1000
+        return (payload.exp * 1000) <= Date.now()
     }
-    return true
+    return false
 }
 
 export function IsAdmin(): boolean {
