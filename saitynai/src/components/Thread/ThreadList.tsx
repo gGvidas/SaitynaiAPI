@@ -3,6 +3,7 @@ import { useApi } from '../../hooks/useAPI'
 import { useParams } from 'react-router-dom'
 import { ThreadLink } from './ThreadLink'
 import './ThreadList.css'
+import { ThreadForm } from './ThreadForm'
 
 export interface IThread {
     id: number,
@@ -18,6 +19,7 @@ type ThreadListParams = {
 }
 
 export const ThreadList:React.FunctionComponent = () => {
+    const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
     const [threads, setThreads] = useState<IThread[]>([])
     const { get } = useApi()
     const { categoryId } = useParams<ThreadListParams>()
@@ -36,6 +38,8 @@ export const ThreadList:React.FunctionComponent = () => {
 
     return (
         <div className="threadList">
+            <ThreadForm isOpen={isFormOpen} onRequestClose={() => setIsFormOpen(false)} callback={() => window.location.reload()} />
+            <button onClick={() => setIsFormOpen(true)}>Create new</button>
             {threads.map(thread => <ThreadLink thread={thread} key={thread.id}/>)}
         </div>
     )

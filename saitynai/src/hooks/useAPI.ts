@@ -22,16 +22,15 @@ function getUrl():string {
 }
 
 const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
+    const accessToken = GetAccessToken()
     const options: ApiOptions = {
         method: apiOptions.method,
-        headers: {}
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
     }
 
-    const accessToken = GetAccessToken()
-
-    if (accessToken){
-        options.headers.Authorization = `Bearer ${accessToken}`
-    }
+    console.log(options)
 
     if (apiOptions.data) {
         options.headers = {
@@ -39,7 +38,7 @@ const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
         }
         options.body = JSON.stringify(apiOptions.data)
     }
-    console.log(options.body)
+
     const result = await fetch(`${getUrl()}/${apiOptions.path}`, options).then(res => res).catch(err => err)
     if (!result.ok) {
         if (IsExpired()) {

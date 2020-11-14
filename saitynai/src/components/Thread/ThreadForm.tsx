@@ -41,7 +41,7 @@ export const ThreadForm = ({oldThread, isOpen, onRequestClose, callback}: IThrea
         if (oldThread){
             const result = await patch(`api/thread/${oldThread.id}`, thread)
 
-            if (result.code === 200) {
+            if (result.code === 204) {
                 callback()
             } else {
                 setError("Error")
@@ -67,7 +67,7 @@ export const ThreadForm = ({oldThread, isOpen, onRequestClose, callback}: IThrea
                 <label htmlFor="body">Body</label>
                 <textarea name="body" ref={register} defaultValue={oldThread ? oldThread.body : ""}/>
                 <label htmlFor="categoryId">Category</label>
-                <select name="categoryId" disabled={oldThread ? true : false}>
+                <select name="categoryId" disabled={oldThread ? true : false} ref={register}>
                     {categories?.map(category => <option value={category.id} key={category.id}>{category.name}</option>)}
                 </select>
                 <input type="submit" value="Submit"/>
