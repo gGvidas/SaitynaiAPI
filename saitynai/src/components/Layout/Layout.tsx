@@ -35,6 +35,7 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                     { GetEmail() ?
                         <div>
                             {GetEmail()}
+                            <button className="logoutButton" onClick={() => logout()}>Logout</button>
                         </div>
                         :
                         <div>
@@ -54,8 +55,9 @@ export const Layout: React.FunctionComponent<IProps> = ({children}: IProps) => {
                     {children}
                 </div>
                 <footer>
+                    {GetEmail() ? <div></div> : null}
                     Made by Gvidas Gaidauskas IFF-7/8
-                    {GetEmail() ? <button onClick={() => logout()}>Logout</button> : null}
+                    {GetEmail() ? <button className="logoutButton" onClick={() => logout()}>Logout</button> : null}
                 </footer>
             </div>
         </>

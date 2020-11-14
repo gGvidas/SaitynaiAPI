@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { ThreadLink } from './ThreadLink'
 import './ThreadList.css'
 import { ThreadForm } from './ThreadForm'
+import { GetEmail } from '../../utils/user'
 
 export interface IThread {
     id: number,
@@ -39,7 +40,7 @@ export const ThreadList:React.FunctionComponent = () => {
     return (
         <div className="threadList">
             <ThreadForm isOpen={isFormOpen} onRequestClose={() => setIsFormOpen(false)} callback={() => window.location.reload()} />
-            <button onClick={() => setIsFormOpen(true)}>Create new</button>
+            {GetEmail() ? <button className="newThreadButton" onClick={() => setIsFormOpen(true)}>Create new</button> : null }
             {threads.map(thread => <ThreadLink thread={thread} key={thread.id}/>)}
         </div>
     )

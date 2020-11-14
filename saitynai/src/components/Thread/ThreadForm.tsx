@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { useHistory } from 'react-router-dom'
 import { useApi } from '../../hooks/useAPI'
 import { useForm } from 'react-hook-form'
 import { FormDialog } from '../FormDialog/FormDialog'
@@ -9,7 +10,7 @@ import { ICategory } from '../Category/CategoryList'
 type Thread = {
     title?: string,
     body: string,
-    categoryId?: number
+    categoryId?: string | number
 }
 
 interface IThreadFormProps {
@@ -22,6 +23,7 @@ interface IThreadFormProps {
 export const ThreadForm = ({oldThread, isOpen, onRequestClose, callback}: IThreadFormProps) => {
     const [error, setError] = useState<string>()
     const [categories, setCategories] = useState<ICategory[]>()
+    const history = useHistory()
     const { register, handleSubmit } = useForm<Thread>()
     const { get, post, patch } = useApi()
 
@@ -48,10 +50,14 @@ export const ThreadForm = ({oldThread, isOpen, onRequestClose, callback}: IThrea
             }
 
         } else {
+            if (typeof thread.categoryId === "string") {
+                thread.categoryId = parseInt(thread.categoryId)
+            }
             const result = await post('api/thread', thread)
 
-            if (result.code === 200) {
-                callback()
+            if (result.code === 201) {
+                const thread: IThread = JSON.parse(result.text)
+                history.push(`/thread/${thread.id}`)
             } else {
                 setError("Error")
             }

@@ -88,6 +88,17 @@ footer {
     color: inherit;
 }
 
+.logoutButton {
+    margin-left: 16px;
+    border: none;
+    background: none;
+    color: inherit;
+}
+
+.logoutButton:hover {
+    cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) {
     #headerMenuButton {
         display: none;

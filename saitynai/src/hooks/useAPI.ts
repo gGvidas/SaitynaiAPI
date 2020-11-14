@@ -30,12 +30,8 @@ const send = async (apiOptions: ApiParams): Promise<FetchReturn> => {
         }
     }
 
-    console.log(options)
-
     if (apiOptions.data) {
-        options.headers = {
-            'Content-Type': 'application/json'
-        }
+        options.headers['Content-Type'] = 'application/json'
         options.body = JSON.stringify(apiOptions.data)
     }
 

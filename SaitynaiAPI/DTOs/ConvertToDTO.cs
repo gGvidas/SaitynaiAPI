@@ -94,7 +94,7 @@ namespace SaitynaiAPI.DTOs
                 Body = thread.Body,
                 CategoryId = thread.CategoryId,
                 Comments = ToGetResponse(thread.Comments),
-                UserEmail = thread.User.Email,
+                UserEmail = "",
                 UserId = thread.UserId
             };
         }

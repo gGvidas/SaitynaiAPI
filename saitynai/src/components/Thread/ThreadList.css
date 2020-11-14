@@ -41,6 +41,20 @@
     z-index: 10;
 }
 
+.newThreadButton {
+    margin-top: 8px;
+    background: none;
+    border: none;
+    border: 1px solid orange;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px orange;
+}
+
+.newThreadButton:hover {
+    cursor: pointer;
+    color: orange;
+}
+
 .threadActionButton:hover {
     background-color: lightgray;
     border-radius: 5px;
