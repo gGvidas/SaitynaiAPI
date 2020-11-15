@@ -1,0 +1,39 @@
+table {
+    width: 50%;
+    border: 1px solid black;
+}
+
+.categoryListDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 4px 8px;
+}
+
+.actionsColumn {
+    width: 96px;
+}
+
+.categoryListActionButton {
+    border: none;
+    background: none;
+}
+
+.categoryListActionButton:hover {
+    cursor: pointer;
+}
+
+.image {
+    max-width: 800px;
+    width: 100%;
+}

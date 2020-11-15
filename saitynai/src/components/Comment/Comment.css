@@ -1,0 +1,31 @@
+.threadComment {
+    width: 80%;
+    border: 1px solid orange;
+    
+    margin-top: 8px;
+    padding: 8px;
+}
+
+.commentAuthor {
+    margin-top: 16px;
+}
+
+.commentActionButton {
+    border: none;
+    background: none;
+    font-weight: bold;
+}
+
+.commentActionButton:hover {
+    cursor: pointer;
+}
+
+.editCommentForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.editCommentForm textarea {
+    margin-right: 16px;
+}

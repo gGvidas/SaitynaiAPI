@@ -40,10 +40,12 @@
     margin-bottom: 24px;
 }
 
-.threadComment {
-    width: 80%;
-    border: 1px solid orange;
-    
-    margin-top: 8px;
-    padding: 8px;
+.newCommentForm {
+    margin: 32px 0px;
+    width: 50%;
+}
+
+.newCommentForm textarea {
+    width: 50%;
+    height: 64px;
 }

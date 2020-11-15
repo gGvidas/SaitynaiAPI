@@ -56,7 +56,7 @@ namespace SaitynaiAPI.DTOs
                 Id = comment.Id,
                 Body = comment.Body,
                 ThreadId = comment.ThreadId,
-                UserEmail = comment.User.Email,
+                UserEmail = "",
                 UserId = comment.UserId
             };
         }

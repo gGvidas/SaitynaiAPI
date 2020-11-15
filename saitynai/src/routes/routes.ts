@@ -1,4 +1,5 @@
 import { ElementType } from "react";
+import { AdminCategoryList } from "../components/Category/AdminCategoryList";
 import { Layout } from "../components/Layout/Layout";
 import { Thread } from "../components/Thread/Thread";
 import { ThreadList } from "../components/Thread/ThreadList";
@@ -12,6 +13,13 @@ type Route = {
 }
 
 export const routes: Route[] = [
+    {
+        name: 'Admin category list',
+        component: AdminCategoryList,
+        path: '/categories',
+        layout: Layout,
+        exact: true
+    },
     {
         name: 'Thread',
         component: Thread,
